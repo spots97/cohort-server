@@ -123,9 +123,11 @@ module.exports = (options) => {
           //   device.socket.isAlive = false
           //   device.socket.close(4001, "Device opened a new socket")
           // }
-          
-          device.socket.send(JSON.stringify({ response: "success" }))
-
+          try {
+            device.socket.send(JSON.stringify({ response: "success" }))
+          }  catch (error) {
+            console.log(`[${new Date(Date.now()).toUTCString()}] ${error}`)
+          }
           // event.broadcastDeviceStates() // eventually this should get triggered by a deviceStatesDidChange event bubbled up from CHDevice... I think?
         }
       })
